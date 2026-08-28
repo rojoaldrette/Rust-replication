@@ -12,14 +12,14 @@
 # _____________________________________________________________________________
 
 from dataclasses import dataclass
-import jax
+
 
 @dataclass(frozen=True)
 class Params:
 
     # Structural params ###################
 
-    beta: float = 0.99
+    beta: float = 0.95
 
     # Utility/cost of keeping the car
     mileage_cost: float = 0.09

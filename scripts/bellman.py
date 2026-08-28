@@ -81,7 +81,8 @@ def solve_bellman(g):
     V_init = jnp.ones(len(x))
 
     T_fixed = lambda V: T(V, g)
-    fpi = FixedPointIteration(fixed_point_fun=T_fixed, implicit_diff=False)
+    fpi = FixedPointIteration(fixed_point_fun=T_fixed, implicit_diff=False,
+                                maxiter=g.vfi_max_iter, tol=g.vfi_tol)
 
     fp = fpi.run(V_init).params
 
@@ -89,12 +90,9 @@ def solve_bellman(g):
     
 
 if __name__ == "__main__":
-    print("Aquí para poner debugging!")
+    #Pruebas
     g = Params()
     V_final = solve_bellman(g)
     print(V_final)
 
-    x = make_mileage_grid(g)
-    v_1 = make_v_1(x, g, V_final)
-    v_0 = make_v_0(x, g, V_final)
 
