@@ -23,8 +23,8 @@ from params import Params
 from probabilities import calc_probs
 from gen_dataset import gen_dataset
 from bellman import solve_bellman
-
-
+from utils import make_params
+from loglikelihood import estim_ll
 
 
 # Main functioon ____________________________________________________________________
@@ -47,13 +47,18 @@ p1, p0 = calc_probs(g)
 
 # Generate dataset #############################
 
-df = gen_dataset(g)
+df = gen_dataset(g, 123)
 
 
 # Estimation ################################
 
-#theta = estim_ll(df, theta)
 
-#df_mc = run_mc()
+def one_mc(theta, seed, theta0):
+    g1 = make_params(theta)
 
+    df = gen_dataset(g1, seed)
+
+    res = estim_ll(theta0, df)
+
+    return res
 

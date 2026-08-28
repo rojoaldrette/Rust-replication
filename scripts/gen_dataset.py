@@ -75,20 +75,21 @@ def sim_buses(p1, g, T=120, n_bus=50, seed=123):
     return mileage, replace
 
 
+
 def gen_dataset(g, seed, T=120, n_bus=50, cell_based=True):
 
     p1, _ = calc_probs(g)
 
-    mil, rep = sim_buses(p1, g, seed)
+    mil, rep = sim_buses(p1, g, seed=123)
 
     df = pd.DataFrame({
     "bus": jnp.repeat(
         jnp.arange(n_bus),
-        120
+        T
     ),
     "t": jnp.tile(
         jnp.arange(T),
-        50
+        n_bus
     ),
     "mileage": mil.flatten(),
     "replace": rep.flatten()

@@ -15,17 +15,15 @@
 
 # Packages ____________________________________________________________________
 
-import pandas as pd
-import jax.numpy as jnp
-from gen_dataset import gen_dataset
-from dataclasses import replace
-from params import Params
-from probabilities import calc_probs
-import jax
-from scipy.optimize import minimize
-import numpy as np
 import time
 
+import jax
+import jax.numpy as jnp
+import numpy as np
+import pandas as pd
+from probabilities import calc_probs
+from scipy.optimize import minimize
+from utils import make_params
 
 # The meat _____________________________________________________________________
 
@@ -37,10 +35,6 @@ def treat_data(cell_df):
     return mileage, n, r
 
 
-def make_params(theta):
-    g = Params()
-    g1 = replace(g, replacement_cost=theta[0], mileage_cost=theta[1])
-    return g1
 
 
 def log_lh(theta, mileage, n, r):
@@ -74,30 +68,17 @@ def wrapper(theta0, data):
     return objective(theta0, mileage, n, r)
 
 
-
-
-
-if __name__ == "__main__":
-
-    df = pd.read_csv('output/dataset_cb_example.csv')
-
-    m, n, r = treat_data(df)
-
-    theta = [1.0, 1.0]
-
-    #print(wrapper(theta, df))
+def estim_ll(theta, data):
 
     diff = jax.grad(wrapper)
-
-    #print(diff(theta, df))
-
+    
     start_time = time.perf_counter()
 
     result = minimize(
         fun=wrapper,
         x0=np.array([8.0, 0.09]),
         jac=diff,
-        args=(df),
+        args=(data),
         method="L-BFGS-B",
         bounds=[
             (1e-6, None), 
@@ -110,6 +91,19 @@ if __name__ == "__main__":
     execution_time = end_time - start_time
     print(f"Execution time: {execution_time:.6f} seconds")
 
+    return result
+
+
+
+
+
+
+if __name__ == "__main__":
+
+    df = pd.read_csv('output/dataset_cb_example.csv')
+    theta = [1.0, 1.0]
+    
+    res = estim_ll(theta, df)
 
 
 

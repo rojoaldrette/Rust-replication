@@ -12,7 +12,8 @@
 # _____________________________________________________________________________
 
 import jax.numpy as jnp
-
+from params import Params
+from dataclasses import replace
 
 def make_mileage_grid(p):
     return jnp.arange(
@@ -21,4 +22,7 @@ def make_mileage_grid(p):
         p.mileage_step
     )
 
-
+def make_params(theta):
+    g = Params()
+    g1 = replace(g, replacement_cost=theta[0], mileage_cost=theta[1])
+    return g1
