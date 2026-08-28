@@ -1,5 +1,5 @@
 \documentclass{article}
-
+\usepackage{amsmath}
 \title{A Simple Rust Model}
 \author{Rodrigo Antonio Aldrette Salas}
 \date{August 2026}
@@ -8,10 +8,53 @@
 \maketitle
 
 \section{Introduction}
+In this document we develop a simple Rust model so we can show the power of JAX when using a NFXP algorithm for estimation.
 
-\section{Model}
+
+\section{The Model}
+
+The model follows closely the version from Hotz (1994). In each month $t$, the owner decides whether or not to replace a bus's engine ($J=2$) to minimize the discounted costs of maintaining it. Everytime he is faced with a bus, he observes its acummulated mileage $x_t$ and decides the replace decision, $d_t=1$ if true and $d_t=0$ otherwise.
+
+The costs are as follows:
+$$u_{t1}=-\beta^t(\theta_0 +\theta_1 x_t+\varepsilon_{t1})$$
+$$u_{t2}=-\beta^t(\theta_1 x_t+\varepsilon_{t2})$$
+
+Where $\varepsilon_{t}$ is an iid Type I Extreme value random variable. The law of motion governing mileage is:
+$$x_{t+1}=b_t+(1-d_t)x_t$$
+Where $b_t$ is an iid random variable with discrete support $\{0, 1, 2\}$. For our commodity, we assign fixed probabilities for each scenario that do not depend on $x_t$. The probabilities are $0.1,0.5$ and $0.4$ repectively. The mileage has an upper limit, such that $x_t\in \{1, 2, ...,90\}$. When in mileage $x_t=89$ or $x_t=90$, the probabilities group together until the probability to increase above $90$ is zero.
+
+The bus manager sequencially chooses for each bus $\{d_{t1}\}_{t=0}^{\infty}$ such that he maximizes
+
+$$E_0\left[\sum_{t=0}^{\infty}-\beta^{t}[d_t(\theta_0 +\theta_1 x_t+\varepsilon_{t1})+(1-d_{t})(\theta_1 x_t+\varepsilon_{t2})]\right]$$
+
+The problem can be expressed in a bellman equation with $x_t$ as the state variable.
+
+$$V(x_t)=\max_{d_t}\left[ v_{td}+\varepsilon_{td} +\beta E_t V(x_{t+1}) \right]$$
+
+Where $v_{td}$ is the choice specific value function. Let's inspect the payoffs of each choice so we are clear what we are modelling here:
+
+$$V(x_t)=\begin{cases}
+    \theta_0 +\theta_1 x_t+\varepsilon_{t1} +\beta (q_0 V(0)+q_1V(1)+q_2V(2)) & \text{Replace}=1 \\
+    \theta_1 x_t+\varepsilon_{t2}+\beta (q_0 V(x_t)+q_1V(x_t+1)+q_2V(x_t+2)) & \text{Keep}=1
+\end{cases}$$
+
+Where $q_a$ is the probability of mileage increasing $a$. This operation is the contraction mapping $T$ of $V$. Let's rename each entry as $v_r$, the discounted value of replacing, and $v_k$, the discounted value of keeping. As it is known, the fixed point of $T$, $V^*$, is the solution to the bellman equation. Rust(1987) made this manageable working with $EV$, the integration over all the stochastic paths, instead of $V$. Applying the expectation over $V$ and expressing it in log-sum form as our errors are type I extreme value, we end up with the following expression:
+
+$$EV(x_t)=\log(e^{v_r(EV)}+e^{v_k(EV)})$$
+
+Once we find the fixed point $EV^*$ we can evaluate $v_r(EV)$ and $v_k(EV)$. We then obtain the probabilities which have a logit form. For simplicity we use the formula:
+
+$$Pr(d=1)=\exp(v_r-EV)$$
+
+Proof follows from the logit specification of probability and our log-sum equation.
+
+With all of the above we get the probabilities from the primitives.
+
 
 \section{Data Generation}
+
+
+
 
 \section{Monte Carlo}
 
