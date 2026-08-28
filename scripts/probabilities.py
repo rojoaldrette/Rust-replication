@@ -20,11 +20,10 @@ import pandas as pd
 import jax.numpy as jnp
 import jaxopt
 
+# Main function ____________________________________________________________________
 
-
-
-# Main functioon ____________________________________________________________________
-
+def calc_probs(g):
+    
 
 
 

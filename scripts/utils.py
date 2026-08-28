@@ -2,8 +2,7 @@
 #
 # Project:        Rust-replication
 #
-# Script:         scripts/main.py
-# Goal:           Funciones auxiliares del proyecto
+# Script:         scripts/utils.py
 #
 # Author:         Rodrigo Antonio Aldrette Salas
 # Mail:           raaldrettes@colmex.mx
@@ -12,19 +11,14 @@
 #
 # _____________________________________________________________________________
 
-
-# Packages ____________________________________________________________________
-
-import numpy as np
-import pandas as pd
 import jax.numpy as jnp
-import jaxopt
 
 
-
-
-# Main functioon ____________________________________________________________________
-
-
+def make_mileage_grid(p):
+    return jnp.arange(
+        p.mileage_min,
+        p.mileage_max + p.mileage_step,
+        p.mileage_step
+    )
 
 
