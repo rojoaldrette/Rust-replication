@@ -40,11 +40,11 @@ class Params:
     q2: float = 0.5 # +1
     q3: float = 0.4 # +2
 
-    # -------------------------
-    # Value function iteration
-    # -------------------------
+    # Value function iteration #################################
 
     vfi_tol: float = 1e-8
     vfi_max_iter: int = 10_000
 
-    seed: int = 123
+    # Monte Carlo ########################################
+
+    mc_replic: int = 250

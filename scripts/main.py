@@ -53,12 +53,5 @@ df = gen_dataset(g, 123)
 # Estimation ################################
 
 
-def one_mc(theta, seed, theta0):
-    g1 = make_params(theta)
 
-    df = gen_dataset(g1, seed)
-
-    res = estim_ll(theta0, df)
-
-    return res
 
