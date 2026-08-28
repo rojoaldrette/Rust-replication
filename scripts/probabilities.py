@@ -2,7 +2,7 @@
 #
 # Project:        Rust-replication
 #
-# Script:         scripts/main.py
+# Script:         scripts/probabilities.py
 # Goal:           Funciones auxiliares del proyecto
 #
 # Author:         Rodrigo Antonio Aldrette Salas
@@ -15,8 +15,7 @@
 
 # Packages ____________________________________________________________________
 
-import numpy as np
-import pandas as pd
+
 import jax.numpy as jnp
 from bellman import make_v_0, make_v_1, solve_bellman
 from utils import make_mileage_grid

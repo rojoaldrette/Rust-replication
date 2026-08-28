@@ -20,12 +20,10 @@ from params import Params
 from utils import make_mileage_grid
 
 '''
-Quick guide:
+Quick comments:
 
 1. 'g' is the parameter that is controlled from main, it is called like 
 g = Params(), can be used for internal debugging under if name = main
-
-2. 
 
 '''
 
