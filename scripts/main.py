@@ -21,6 +21,8 @@ import jax.numpy as jnp
 from dataclasses import replace
 from params import Params
 from probabilities import calc_probs
+from gen_dataset import gen_dataset
+from bellman import solve_bellman
 
 
 
@@ -36,13 +38,16 @@ g = Params()
 #g1 = replace(g, replacement_cost=4)
 
 
+# Get bellman FP ##############################
+V = solve_bellman(g)
+
 # Get probabilities ##############################
 p1, p0 = calc_probs(g)
 
 
 # Generate dataset #############################
 
-#df = gen_dataset(p1)
+df = gen_dataset(g)
 
 
 # Estimation ################################

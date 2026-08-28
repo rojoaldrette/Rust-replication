@@ -19,13 +19,13 @@ class Params:
 
     # Structural params ###################
 
-    beta: float = 0.95
+    beta: float = 0.97
 
     # Utility/cost of keeping the car
-    mileage_cost: float = 0.09
+    mileage_cost: float = 0.013
 
     # Cost of replacing the car
-    replacement_cost: float = 8.0
+    replacement_cost: float = 7.0
 
 
     # State variable #####################

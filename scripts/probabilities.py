@@ -27,8 +27,9 @@ def calc_probs(g):
     
     V_final = solve_bellman(g)
     x = make_mileage_grid(g)
+    # I checked it worked so I dropped v_0 to keep it normalized
+    # If I see too much bias then I will add it
     v_1 = make_v_1(x, g, V_final)
-    v_0 = make_v_0(x, g, V_final)
 
     p1 = jnp.exp(v_1 - V_final)
     p0 = 1 - p1
