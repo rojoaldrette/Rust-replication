@@ -6,7 +6,7 @@ This project is a Rust replication to test the capabilities of JAX in decreasing
 
 ## Design
 
-The model, data generation and Monte Carlo design are discussed in more detail in the [pdf](./docs/latex_test.pdf) inside the docs folder
+The model, data generation and Monte Carlo design are discussed in more detail in the [pdf](./docs/design.pdf) inside the docs folder
 
 ## Code description
 
