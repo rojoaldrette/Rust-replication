@@ -15,16 +15,10 @@
 
 # Packages ____________________________________________________________________
 
-import numpy as np
-import pandas as pd
-import jax.numpy as jnp
-from dataclasses import replace
-from params import Params
 from probabilities import calc_probs
 from gen_dataset import gen_dataset
 from bellman import solve_bellman
 from utils import make_params
-from loglikelihood import estim_ll
 
 
 # Main functioon ____________________________________________________________________
@@ -32,14 +26,10 @@ from loglikelihood import estim_ll
 
 # Parameters ###################################
 
-# Escenario base
-g = Params()
-# Diferent parameter
+theta = [4.0, 0.09]
+g = make_params(theta)
 #g1 = replace(g, replacement_cost=4)
 
-
-# Get bellman FP ##############################
-V = solve_bellman(g)
 
 # Get probabilities ##############################
 p1, p0 = calc_probs(g)

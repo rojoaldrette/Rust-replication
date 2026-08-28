@@ -79,7 +79,10 @@ def results_mc(estimates, theta_true, graph=True):
     print("\nRMSE:")
     print(rmse)
 
-    # Graphs
+
+
+
+def graph_results(estimates, theta_true):
     fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
     # Replacement cost
@@ -106,6 +109,8 @@ def results_mc(estimates, theta_true, graph=True):
 
     plt.tight_layout()
     plt.show()
+
+    # Second graph
 
     fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
@@ -134,17 +139,20 @@ def results_mc(estimates, theta_true, graph=True):
 
 
 
-
-
 if __name__ == "__main__":
     # Pruebas
-    theta=[6.0, 0.02]
-    res = one_mc(theta, 123, theta)
+    theta=[8.0, 0.015]
+    theta0 = [1.0, 1.0]
+    res = one_mc(theta, 2, theta0)
     print(res)
 
     coso = montecarlo(250, theta)
 
     results_mc(coso, theta)
+
+    graph_results(coso, theta)
+
+
 
     
 

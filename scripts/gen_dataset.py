@@ -80,7 +80,7 @@ def gen_dataset(g, seed, T=120, n_bus=50, cell_based=True):
 
     p1, _ = calc_probs(g)
 
-    mil, rep = sim_buses(p1, g, seed=123)
+    mil, rep = sim_buses(p1, g, seed=seed)
 
     df = pd.DataFrame({
     "bus": jnp.repeat(
