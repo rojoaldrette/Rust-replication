@@ -1,0 +1,5 @@
+﻿# Metadatos del Proyecto
+# Este archivo es usado por las herramientas de plantilla para recordar el nombre original del proyecto
+PROJECT_NAME=Rust-replication
+PROJECT_SLUG=rust_replication
+CREATED_DATE=28/08/2026
