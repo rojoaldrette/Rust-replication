@@ -66,3 +66,41 @@ wheels/
 # Archivos generados por IDEs y herramientas
 .idea/
 .vscode/
+
+# ==========================================
+# LaTeX Temporary & Auxiliary Files (Inside docs/)
+# ==========================================
+
+# Core auxiliary files
+docs/**/*.aux
+docs/**/*.log
+docs/**/*.fls
+docs/**/*.fdb_latexmk
+docs/**/*.synctex.gz
+
+# Table of contents, figures, and tables lists
+docs/**/*.toc
+docs/**/*.lof
+docs/**/*.lot
+
+# Bibliography files (BibTeX / Biber)
+docs/**/*.bbl
+docs/**/*.blg
+docs/**/*.bcf
+docs/**/*.run.xml
+
+# Hyperref and outlines
+docs/**/*.out
+docs/**/*.out.ps
+
+# Indexes and Glossaries
+docs/**/*.idx
+docs/**/*.ind
+docs/**/*.ilg
+docs/**/*.glo
+docs/**/*.gls
+docs/**/*.glg
+
+# Document-specific build folders (if using Strategy 1)
+docs/out/
+docs/build/
