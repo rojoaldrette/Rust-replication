@@ -2,9 +2,6 @@
 input/*
 !input/.keep
 
-# Quitar contenido en output/ (excepto el .keep para mantener la carpeta en el repositorio)
-output/*
-!output/.keep
 
 # Archivos de variables de entorno y directorios de configuración
 .env

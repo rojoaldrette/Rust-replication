@@ -25,7 +25,7 @@ from probabilities import calc_probs
 T = 120 # Time periods
 M = 50 # Buses
 
-def sim_buses(p1, g, T=120, n_bus=50):
+def sim_buses(p1, g, T=120, n_bus=50, cell_based=True):
     key = jax.random.PRNGKey(g.seed)
 
     mileage = jnp.zeros((n_bus, T), dtype=int)
@@ -75,13 +75,11 @@ def sim_buses(p1, g, T=120, n_bus=50):
     return mileage, replace
 
 
+def gen_dataset(g, T=120, n_bus=50):
 
-if __name__ == "__main__":
-    # Pruebas
-    g = Params()
-    p1, p0 = calc_probs(g)
-    
-    mil, rep = sim_buses(p1, g)
+    p1, _ = calc_probs(g)
+
+    mil, rep = sim_buses(p1, g, T=120, n_bus=50)
 
     df = pd.DataFrame({
     "bus": jnp.repeat(
@@ -95,6 +93,18 @@ if __name__ == "__main__":
     "mileage": mil.flatten(),
     "replace": rep.flatten()
     })
+
+    return df
+
+
+
+
+if __name__ == "__main__":
+    # Pruebas
+    g = Params()
+    df = gen_dataset(g)
+    
+    df.to_csv('output/dataset_example.csv', index=False)
 
 
 
